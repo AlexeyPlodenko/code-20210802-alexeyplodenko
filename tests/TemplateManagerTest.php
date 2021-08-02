@@ -1,5 +1,10 @@
 <?php
 
+use App\Context\ApplicationContext;
+use App\Entity\Quote;
+use App\Entity\Template;
+use App\Repository\DestinationRepository;
+
 require_once __DIR__ . '/../src/Entity/Destination.php';
 require_once __DIR__ . '/../src/Entity/Quote.php';
 require_once __DIR__ . '/../src/Entity/Site.php';

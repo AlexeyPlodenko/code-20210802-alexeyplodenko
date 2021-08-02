@@ -1,11 +1,18 @@
 <?php
 
+use App\Context\ApplicationContext;
+use App\Entity\Quote;
+use App\Entity\Template;
+use App\Repository\DestinationRepository;
+use App\Repository\QuoteRepository;
+use App\Repository\SiteRepository;
+
 class TemplateManager
 {
     public function getTemplateComputed(Template $tpl, array $data)
     {
         if (!$tpl) {
-            throw new \RuntimeException('no tpl given');
+            throw new RuntimeException('no tpl given');
         }
 
         $replaced = clone($tpl);
@@ -21,13 +28,12 @@ class TemplateManager
 
         $quote = (isset($data['quote']) and $data['quote'] instanceof Quote) ? $data['quote'] : null;
 
-        if ($quote)
-        {
+        if ($quote) {
             $_quoteFromRepository = QuoteRepository::getInstance()->getById($quote->id);
             $usefulObject = SiteRepository::getInstance()->getById($quote->siteId);
             $destinationOfQuote = DestinationRepository::getInstance()->getById($quote->destinationId);
 
-            if(strpos($text, '[quote:destination_link]') !== false){
+            if (strpos($text, '[quote:destination_link]') !== false) {
                 $destination = DestinationRepository::getInstance()->getById($quote->destinationId);
             }
 
